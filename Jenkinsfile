@@ -10,18 +10,21 @@ pipeline {
         stage('Test') {
             steps {
                 sh '''
-                pip install -r requirements.txt
-                pytest
+                    docker build -t todo-test .
+                    docker run --rm todo-test pytest
                 '''
             }
         }
+
         stage('Build Image') {
             steps {
-                sh 'docker build -t $IMAGE_NAME:latest .'
+                sh '''
+                    docker build -t $IMAGE_NAME:latest .
+                '''
             }
         }
 
-        stage('Login, Tag & Push Image') {
+        stage('Login & Push Image') {
             steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'dockerhub-creds',
