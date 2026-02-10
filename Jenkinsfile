@@ -11,7 +11,7 @@ pipeline {
             steps {
                 sh '''
                     docker build -t todo-test .
-                    docker run --rm todo-test pytest
+                    docker run --rm todo-test
                 '''
             }
         }
