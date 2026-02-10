@@ -2,17 +2,16 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "todo-app"
+        IMAGE = "bharathcm/todo-app"
         CONTAINER_NAME = "todo-app"
         APP_PORT = "5000"
-        DOCKER_REPO = "bharathcm"
     }
 
     stages {
 
         stage('Build Image') {
             steps {
-                sh 'docker build -t $IMAGE_NAME:latest .'
+                sh 'docker build -t $IMAGE:latest .'
             }
         }
 
@@ -25,24 +24,24 @@ pipeline {
                 )]) {
                     sh '''
                         echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-                        docker tag $IMAGE_NAME:latest $DOCKER_USER/$IMAGE_NAME:latest
-                        docker push $DOCKER_USER/$IMAGE_NAME:latest
+                        docker push $IMAGE:latest
                     '''
                 }
             }
         }
+
         stage('Deploy Container') {
             steps {
                 sh '''
-                    docker pull $DOCKER_REPO/$IMAGE_NAME:latest || true
+                    docker pull $IMAGE:latest || true
 
                     docker stop $CONTAINER_NAME || true
                     docker rm $CONTAINER_NAME || true
 
                     docker run -d \
-                    -p $APP_PORT:$APP_PORT \
-                    --name $CONTAINER_NAME \
-                    $DOCKER_USER/$IMAGE_NAME:latest
+                      -p $APP_PORT:$APP_PORT \
+                      --name $CONTAINER_NAME \
+                      $IMAGE:latest
                 '''
             }
         }
