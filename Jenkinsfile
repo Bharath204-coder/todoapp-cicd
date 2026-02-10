@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = "todo-app"
-        CONTINER_NAME = "todo-app"
+        CONTAINER_NAME = "todo-app"
         APP_PORT = "5000"
     }
 
