@@ -33,7 +33,7 @@ pipeline {
         stage('Deploy Container') {
             steps {
                 sh '''
-                    docker pull $DOCKER_USER/$IAMGE_NAME:latest || true
+                    docker pull $DOCKER_USER/$IMAGE_NAME:latest || true
 
                     docker stop $CONTAINER_NAME || true
                     docker rm $CONTAINER_NAME || true
