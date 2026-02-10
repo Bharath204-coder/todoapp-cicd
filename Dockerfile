@@ -14,4 +14,4 @@ RUN pip install -r requirements.txt
 EXPOSE 5000
 
 #start application
-CMD ["pytest"]
+CMD ["python","app/app.py"]
