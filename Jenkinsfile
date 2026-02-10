@@ -5,6 +5,7 @@ pipeline {
         IMAGE_NAME = "todo-app"
         CONTAINER_NAME = "todo-app"
         APP_PORT = "5000"
+        DOCKER_REPO = "bharathcm"
     }
 
     stages {
