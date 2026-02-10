@@ -3,6 +3,8 @@ pipeline {
 
     environment {
         IMAGE_NAME = "todo-app"
+        CONTINER_NAME = "todo-app"
+        APP_PORT = "5000"
     }
 
     stages {
@@ -26,6 +28,21 @@ pipeline {
                         docker push $DOCKER_USER/$IMAGE_NAME:latest
                     '''
                 }
+            }
+        }
+        stage('Deploy Container') {
+            steps {
+                sh '''
+                    docker pull $DOCKER_USER/$IAMGE_NAME:latest || true
+
+                    docker stop $CONTAINER_NAME || true
+                    docker rm $CONTAINER_NAME || true
+
+                    docker run -d \
+                    -p $APP_PORT:$APP_PORT \
+                    --name $CONTAINER_NAME \
+                    $DOCKER_USER/$IMAGE_NAME:latest
+                '''
             }
         }
     }
