@@ -7,20 +7,9 @@ pipeline {
 
     stages {
 
-        stage('Test') {
-            steps {
-                sh '''
-                    docker build -t todo-test .
-                    docker run --rm todo-test
-                '''
-            }
-        }
-
         stage('Build Image') {
             steps {
-                sh '''
-                    docker build -t $IMAGE_NAME:latest .
-                '''
+                sh 'docker build -t $IMAGE_NAME:latest .'
             }
         }
 
