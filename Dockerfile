@@ -5,13 +5,13 @@ FROM python:3.9-slim
 WORKDIR /app
 
 #Copy app code
-COPY app/ /app
+COPY . .
 
 #Install dependencies
-RUN pip install flask
+RUN pip install -r requirements.txt
 
 #Expose port
 EXPOSE 5000
 
 #start application
-CMD [ "python","app.py" ]
+CMD [ "python","app/app.py" ]
