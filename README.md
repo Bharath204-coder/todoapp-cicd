@@ -4,28 +4,17 @@ This project demonstrates a complete real-world CI/CD pipeline using **Jenkins, 
 It simulates production DevOps workflows including secure credentials handling, persistent Jenkins setup, and automated container deployment.
 
 ---
-
 ## 📌 Project Architecture
 ```bash
-todoapp-cicd/
-│
-├── app/
-│   ├── __init__.py
-│   └── app.py
-│
-├── templates/
-│   └── index.html
-│
-├── static/
-│   └── style.css
-│
-├── tests/            # (optional – if you keep tests later)
-│   └── test_app.py
-│
-├── Dockerfile
-├── Jenkinsfile
-├── requirements.txt
-└── README.md
+GitHub Repo
+    ↓
+Jenkins Pipeline
+    ↓
+Docker Build
+    ↓
+DockerHub Registry
+    ↓
+Auto Deployment (Docker Container)
 ```
 ---
 
@@ -50,19 +39,28 @@ todoapp-cicd/
 
 ---
 
-## 📂 Project Structure
+## 📌 Project Architecture
+```bash
+todoapp-cicd/
+│
 ├── app/
-│ └── app.py
+│   ├── __init__.py
+│   └── app.py
+│
 ├── templates/
-│ └── index.html
+│   └── index.html
+│
 ├── static/
-│ └── style.css
+│   └── style.css
+│
+├── tests/            
+│   └── test_app.py
+│
 ├── Dockerfile
 ├── Jenkinsfile
 ├── requirements.txt
 └── README.md
-
-
+```
 ---
 
 ## 🚀 Jenkins Pipeline Flow
