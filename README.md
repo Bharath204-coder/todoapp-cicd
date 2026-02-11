@@ -100,3 +100,15 @@ http://localhost:5000
 5. Infrastructure automation
 6. Real-world CI/CD design
 
+
+## 🌟 Future Improvements
+
+1. GitHub webhook auto-trigger
+2. Docker Compose multi-service setup
+3. Kubernetes deployment (AWS EKS)
+4. Monitoring with Prometheus & Grafana
+
+## 👨‍💻 Author
+Bharath C M
+Aspiring DevOps Engineer | Cloud & Automation Enthusiast
+
