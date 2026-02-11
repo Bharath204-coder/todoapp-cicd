@@ -6,17 +6,27 @@ It simulates production DevOps workflows including secure credentials handling, 
 ---
 
 ## 📌 Project Architecture
-
-GitHub Repo
-    ↓
-Jenkins Pipeline
-    ↓
-Docker Build
-    ↓
-DockerHub Registry
-    ↓
-Auto Deployment (Docker Container)
-
+```bash
+todoapp-cicd/
+│
+├── app/
+│   ├── __init__.py
+│   └── app.py
+│
+├── templates/
+│   └── index.html
+│
+├── static/
+│   └── style.css
+│
+├── tests/            # (optional – if you keep tests later)
+│   └── test_app.py
+│
+├── Dockerfile
+├── Jenkinsfile
+├── requirements.txt
+└── README.md
+```
 ---
 
 ## 🛠 Tech Stack
