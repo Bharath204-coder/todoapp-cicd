@@ -8,13 +8,13 @@ It simulates production DevOps workflows including secure credentials handling, 
 ## 📌 Project Architecture
 
 GitHub Repo
-↓
+    ↓
 Jenkins Pipeline
-↓
+    ↓
 Docker Build
-↓
+    ↓
 DockerHub Registry
-↓
+    ↓
 Auto Deployment (Docker Container)
 
 ---
