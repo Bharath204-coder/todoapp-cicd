@@ -30,20 +30,19 @@ pipeline {
             }
         }
 
-        stage('Deploy Container') {
-            steps {
-                sh '''
-                    docker pull $IMAGE:latest || true
-
-                    docker stop $CONTAINER_NAME || true
-                    docker rm $CONTAINER_NAME || true
-
-                    docker run -d \
-                      -p $APP_PORT:$APP_PORT \
-                      --name $CONTAINER_NAME \
-                      $IMAGE:latest
-                '''
-            }
+        stage('Deploy to Production') {
+    steps {
+        sshagent(['prod-ssh-key']) {
+            sh '''
+            ssh -o StrictHostKeyChecking=no ec2-user@3.221.159.230 "
+                docker pull $IMAGE:latest &&
+                docker stop $CONTAINER_NAME || true &&
+                docker rm $CONTAINER_NAME || true &&
+                docker run -d -p 80:5000 --name $CONTAINER_NAME $IMAGE:latest
+            "
+            '''
         }
+    }
+}
     }
 }
