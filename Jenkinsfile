@@ -30,16 +30,18 @@ pipeline {
             }
         }
 
-    stage('Deploy to Production') {
+        stage('Deploy to Production') {
     steps {
-        sh '''
-        ssh -i ~/.ssh/prod-key.pem -o StrictHostKeyChecking=no ec2-user@100.54.138.243 "
-            docker pull bharathcm/todo-app:latest &&
-            docker stop todo-app || true &&
-            docker rm todo-app || true &&
-            docker run -d -p 80:5000 --name todo-app bharathcm/todo-app:latest
-        "
-        '''
+        sshagent(['prod-ssh-key']) {
+            sh '''
+            ssh -o StrictHostKeyChecking=no ec2-user@100.54.138.243 "
+                docker pull bharathcm/todo-app:latest &&
+                docker stop todo-app || true &&
+                docker rm todo-app || true &&
+                docker run -d -p 80:5000 --name todo-app bharathcm/todo-app:latest
+            "
+            '''
+        }
     }
 }
     }
