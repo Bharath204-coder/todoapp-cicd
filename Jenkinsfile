@@ -34,11 +34,11 @@ pipeline {
     steps {
         sshagent(['prod-ssh-key']) {
             sh '''
-            ssh -o StrictHostKeyChecking=no ec2-user@100.54.138.243"
-                docker pull $IMAGE:latest &&
-                docker stop $CONTAINER_NAME || true &&
-                docker rm $CONTAINER_NAME || true &&
-                docker run -d -p 80:5000 --name $CONTAINER_NAME $IMAGE:latest
+            ssh -o StrictHostKeyChecking=no ec2-user@100.54.138.243 "
+                docker pull bharathcm/todo-app:latest &&
+                docker stop todo-app || true &&
+                docker rm todo-app || true &&
+                docker run -d -p 80:5000 --name todo-app bharathcm/todo-app:latest
             "
             '''
         }
