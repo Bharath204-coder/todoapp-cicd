@@ -34,7 +34,7 @@ pipeline {
     steps {
         sshagent(['prod-ssh-key']) {
             sh '''
-            ssh -o StrictHostKeyChecking=no ec2-user@100.54.138.243 "
+            ssh -o StrictHostKeyChecking=no ec2-user@98.80.137.88 "
                 docker pull bharathcm/todo-app:latest &&
                 docker stop todo-app || true &&
                 docker rm todo-app || true &&
