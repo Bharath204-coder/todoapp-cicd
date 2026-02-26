@@ -33,7 +33,7 @@ pipeline {
 
         stage('Deploy to Production') {
             steps {
-                sshagent(['app-server-ssh']) {
+                sshagent(['ec2-user']) {
                     sh '''
                     ssh -o StrictHostKeyChecking=no $APP_SERVER "
                         docker pull $IMAGE:latest &&
