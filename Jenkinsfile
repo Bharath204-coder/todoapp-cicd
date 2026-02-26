@@ -34,7 +34,7 @@ pipeline {
         stage('Deploy to Production') {
     steps {
         withCredentials([sshUserPrivateKey(
-            credentialsId: 'app-server-ssh',
+            credentialsId: 'app-server-keyfile',
             keyFileVariable: 'SSH_KEY'
         )]) {
             sh '''
