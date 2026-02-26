@@ -33,7 +33,7 @@ pipeline {
 
         stage('Deploy to Production') {
             steps {
-                sshagent(['prod-ssh-key']) {
+                sshagent(['app-server-ssh']) {
                     sh '''
                     ssh -o StrictHostKeyChecking=no $APP_SERVER "
                         docker pull $IMAGE:latest &&
