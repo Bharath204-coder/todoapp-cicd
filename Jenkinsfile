@@ -32,18 +32,22 @@ pipeline {
         }
 
         stage('Deploy to Production') {
-            steps {
-                sshagent(['app-server-ssh']) {
-                    sh '''
-                    ssh -o StrictHostKeyChecking=no $APP_SERVER "
-                        docker pull $IMAGE:latest &&
-                        docker stop $CONTAINER_NAME || true &&
-                        docker rm $CONTAINER_NAME || true &&
-                        docker run -d -p 80:5000 --name $CONTAINER_NAME $IMAGE:latest
-                    "
-                    '''
-                }
-            }
+    steps {
+        withCredentials([sshUserPrivateKey(
+            credentialsId: 'app-server-ssh',
+            keyFileVariable: 'SSH_KEY'
+        )]) {
+            sh '''
+            chmod 600 $SSH_KEY
+            ssh -o StrictHostKeyChecking=no -i $SSH_KEY $APP_SERVER "
+                docker pull $IMAGE:latest &&
+                docker stop $CONTAINER_NAME || true &&
+                docker rm $CONTAINER_NAME || true &&
+                docker run -d -p 80:5000 --name $CONTAINER_NAME $IMAGE:latest
+            "
+            '''
         }
+    }
+}
     }
 }
