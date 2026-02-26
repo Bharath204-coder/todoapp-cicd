@@ -5,6 +5,7 @@ pipeline {
         IMAGE = "bharathcm/todo-app"
         CONTAINER_NAME = "todo-app"
         APP_PORT = "5000"
+        APP_SERVER = "ec2-user@172.31.1.205"   
     }
 
     stages {
@@ -31,18 +32,18 @@ pipeline {
         }
 
         stage('Deploy to Production') {
-    steps {
-        sshagent(['prod-ssh-key']) {
-            sh '''
-            ssh -o StrictHostKeyChecking=no ec2-user@98.80.137.88 "
-                docker pull bharathcm/todo-app:latest &&
-                docker stop todo-app || true &&
-                docker rm todo-app || true &&
-                docker run -d -p 80:5000 --name todo-app bharathcm/todo-app:latest
-            "
-            '''
+            steps {
+                sshagent(['prod-ssh-key']) {
+                    sh '''
+                    ssh -o StrictHostKeyChecking=no $APP_SERVER "
+                        docker pull $IMAGE:latest &&
+                        docker stop $CONTAINER_NAME || true &&
+                        docker rm $CONTAINER_NAME || true &&
+                        docker run -d -p 80:5000 --name $CONTAINER_NAME $IMAGE:latest
+                    "
+                    '''
+                }
+            }
         }
-    }
-}
     }
 }
